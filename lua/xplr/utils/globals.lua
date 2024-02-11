@@ -3,7 +3,9 @@
 
 -- xplr config object
 XplrConfig = require('toolbox.app.config').new 'xplr'
-Logger = require('toolbox.app.logger').new(Config, require('toolbox.log.type').XPLR)
+
+-- logger factory
+GetLogger = require 'xplr.utils.loggers'
 
 -- generally useful, oft imported utils
 Array = require 'toolbox.core.array'
