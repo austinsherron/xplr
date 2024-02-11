@@ -5,4 +5,3 @@ require 'xplr.utils.globals'
 -- plugins ---------------------------------------------------------------------
 
 require 'xplr.plugins'
-
