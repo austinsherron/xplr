@@ -1,3 +1,9 @@
+local Path = require 'toolbox.system.path'
+
+local PLUGINS_ROOT = Path.Std.config() .. '/xplr/packages'
+local XPM_REPO = 'dtomvan/xpm.xplr'
+local XPM_PATH = PLUGINS_ROOT .. '/' .. XPM_REPO
+
 --- Contains functions for configuring xplr plugins.
 ---
 ---@class XplrPluginConfig
@@ -31,6 +37,17 @@ function PluginConfig.nvimctrl()
       ['ctrl-e'] = 'tabedit',
       ['o'] = 'e',
     },
+  }
+end
+
+---@return table: config values for xpm (plugin manager)
+function PluginConfig.xpm()
+  return {
+    auto_install = true,
+    auto_cleanup = true,
+    path = XPM_PATH,
+    repo = XPM_REPO,
+    root = PLUGINS_ROOT,
   }
 end
 

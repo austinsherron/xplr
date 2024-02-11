@@ -1,6 +1,8 @@
+local Config = require 'xplr.plugins.config'
+local File = require 'toolbox.system.file'
+local Git = require 'toolbox.system.git'
+local Import = require 'toolbox.utils.import'
 local Lambda = require 'toolbox.functional.lambda'
-
-local xpm = require 'xpm'
 
 --- Responsible for xplr plugin orchestration.
 ---
@@ -52,6 +54,10 @@ local function get_plugin_defs(plugins)
   return require(plugins)
 end
 
+local function download(xpm_config)
+  Git.clone(xpm_config.repo, xpm_config.path, { filter = 'blob:none', branch = 'stable' })
+end
+
 --- Initializes the xplr plugin manager.
 ---
 ---@param plugins string|table: a string lua path to an importable source of plugin
@@ -61,11 +67,17 @@ function PluginManager.init(plugins)
   local defs = get_plugin_defs(plugins or {})
   local specs = create_specs(defs)
 
-  xpm.setup({
-    plugins = specs,
-    auto_install = true,
-    auto_cleanup = true,
-  })
+  local xpm_config = Config.xpm()
+  local xpm_exists = File.is_dir(xpm_config.path)
+
+  if not xpm_exists == nil then
+    download(xpm_config)
+  elseif xpm_exists == false then
+    error 'XplrPluginManager: unexpected state: file exists at xpm dir path'
+  end
+
+  Import.add_to_path(xpm_config.path)
+  require('xpm').setup(Table.combine({ plugins = specs }, xpm_config))
 end
 
 return PluginManager
