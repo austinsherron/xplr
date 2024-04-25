@@ -4,15 +4,14 @@ local LogLevel = require 'toolbox.log.level'
 local Logger = require 'toolbox.log.logger'
 local LoggerType = require 'toolbox.log.type'
 
-local level = XplrConfig.log_level() or LogLevel.default()
-
+local level = 'DEBUG'
 local logger = Logger.new(LoggerType.XPLR, level)
 
 local LOGGERS = {
   INIT = Lazy.value(function()
     return logger:sub 'INIT'
   end),
-  SPOONS = Lazy.value(function()
+  XPM = Lazy.value(function()
     return logger:sub 'XPM'
   end),
 }

@@ -4,6 +4,8 @@ local Git = require 'toolbox.system.git'
 local Import = require 'toolbox.utils.import'
 local Lambda = require 'toolbox.functional.lambda'
 
+local LOGGER = GetLogger 'XPM'
+
 --- Responsible for xplr plugin orchestration.
 ---
 --- @class XplrPluginMgr
@@ -55,7 +57,8 @@ local function get_plugin_defs(plugins)
 end
 
 local function download(xpm_config)
-  Git.clone(xpm_config.repo, xpm_config.path, { filter = 'blob:none', branch = 'stable' })
+  LOGGER:debug('downloading xpm to %s', { xpm_config.path })
+  Git.clone(xpm_config.repo, xpm_config.path)
 end
 
 --- Initializes the xplr plugin manager.
@@ -70,7 +73,9 @@ function PluginManager.init(plugins)
   local xpm_config = Config.xpm()
   local xpm_exists = File.is_dir(xpm_config.path)
 
-  if not xpm_exists == nil then
+  LOGGER:debug('xpm exists? %s', { xpm_exists and 'yes' or 'no' })
+
+  if xpm_exists == nil then
     download(xpm_config)
   elseif xpm_exists == false then
     error 'XplrPluginManager: unexpected state: file exists at xpm dir path'

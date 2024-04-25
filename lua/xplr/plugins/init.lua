@@ -1,1 +1,1 @@
-require('xplr.utils.pluginmanager').init 'plugins.spec'
+require('xplr.utils.pluginmanager').init 'xplr.plugins.spec'

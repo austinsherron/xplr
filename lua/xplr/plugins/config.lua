@@ -1,8 +1,8 @@
 local Path = require 'toolbox.system.path'
 
-local PLUGINS_ROOT = Path.Std.config() .. '/xplr/packages'
+local PLUGINS_ROOT = Path.config 'xplr' .. '/packages'
 local XPM_REPO = 'dtomvan/xpm.xplr'
-local XPM_PATH = PLUGINS_ROOT .. '/' .. XPM_REPO
+local XPM_PATH = PLUGINS_ROOT .. '/xpm.xplr'
 
 --- Contains functions for configuring xplr plugins.
 ---

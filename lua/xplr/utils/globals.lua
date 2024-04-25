@@ -1,6 +1,9 @@
 ---@note: we want global functions w/ lowercased names
 ---@diagnostic disable: lowercase-global
 
+-- constants
+version = '0.21.5' -- needed by xplr
+
 -- xplr config object
 XplrConfig = require('toolbox.app.config').new 'xplr'
 

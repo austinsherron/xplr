@@ -28,6 +28,7 @@ return {
   ---- material-landscape: earthy theme
   {
     'sayanarijit/material-landscape.xplr',
+    enabled = false,
     main = 'material-landscape',
     opts = Config.material(),
   },
